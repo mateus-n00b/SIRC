@@ -30,14 +30,14 @@ def send():
 
 def read():
     while 1:
-        msg = sock.recv(1024) # read from buffer
+        cipher_msg = sock.recv(1024) # read from buffer
         if not msg:
             print "[-] Server seems to be OFFLINE! Exiting..."
             break
 
-        json_msg = security.decrypt_msg(AES_Key,AES_IV,msg) # Decrypt msg
-        clean_msg = json.loads(json_msg)
-        print clean_msg['nick'].encode("utf-8")+':> '+clean_msg['txt'].encode("utf-8") # print the message
+        plain_msg = security.decrypt_msg(AES_Key,AES_IV,cipher_msg) # Decrypt msg
+        plain_msg = json.loads(plain_msg)
+        print plain_msg['nick'].encode("utf-8")+':> '+plain_msg['txt'].encode("utf-8") # print the message
 
 # Authentication
 def authenticate(conn):

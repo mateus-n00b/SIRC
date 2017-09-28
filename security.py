@@ -7,12 +7,14 @@
 # Mateus-n00b
 #
 #
-
 from Crypto.Cipher import AES
 import random,json
+import prime_generator
 
 # Prime numbers
-PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+PRIME = range(2,30001)
+prime_generator.prime_generator(PRIME,30001)
+
 KEY_LEN = 16 # Key length (use multiples of 16)
 PADDING = ' ' # padding character
 

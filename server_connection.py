@@ -42,7 +42,7 @@ def handle_msg(conn,port):
                         obj.send(cipher_txt) # send the message to the endpoint
                     except:
                         CONNECTIONS.remove((obj,p))
-                    # print clean_msg['nick'].encode("utf-8")+':> '+clean_msg['txt'].encode("utf-8")
+                    # print plain_msg['nick'].encode("utf-8")+':> '+plain_msg['txt'].encode("utf-8")
 
 
 def handle_conn(sock):
@@ -71,6 +71,7 @@ def authenticate(conn,port):
     global KEYs_IVs
     AES_Key = str()
     AES_IV = str()
+    
     AES_Key,AES_IV = security.diffie_hellman_server(conn)
     KEYs_IVs[port] = (AES_Key,AES_IV)
     print "[+] Successful!"
