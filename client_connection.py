@@ -3,10 +3,8 @@
 #
 # Mateus-n00b
 #
-# TODO: Finish it!
+# TODO: Conclude the implementation!
 #
-#
-
 from socket import *
 from threading import Thread
 import irc_cmds
@@ -26,9 +24,8 @@ def send():
     while 1:
           txt = raw_input("{0}>: ".format(nick))
           message['txt'] = txt
-          msg = security.encrypt_msg(AES_Key,AES_IV,json.dumps(message))
-
           if txt:
+              msg = security.encrypt_msg(AES_Key,AES_IV,json.dumps(message))
               sock.send(msg)
 
 def read():
@@ -38,9 +35,9 @@ def read():
             print "[-] Server seems to be OFFLINE! Exiting..."
             break
 
-        j_obj = json.loads(msg)
-
-        print j_obj['nick'].encode("utf-8")+'>: '+j_obj['txt'].encode("utf-8")
+        json_msg = security.decrypt_msg(AES_Key,AES_IV,msg) # Decrypt msg
+        clean_msg = json.loads(json_msg)
+        print clean_msg['nick'].encode("utf-8")+':> '+clean_msg['txt'].encode("utf-8") # print the message
 
 # Authentication
 def authenticate(conn):
@@ -48,11 +45,12 @@ def authenticate(conn):
     global AES_IV
     AES_Key,AES_IV = security.diffie_hellman_client(conn) # Generate AES_Key and AES_IV to encrypt the messages
 
-def run(server_ip,port): # start a new connection (set the server_ip and port)
+
+def run(server_ip,port=gl_port): # start a new connection (set the server_ip and port)
     global nick
     global message
 
-    tmp = raw_input("You nick: ")
+    tmp = raw_input("Your nickname: ")
     if tmp:
         nick = tmp
 
@@ -73,7 +71,7 @@ def run(server_ip,port): # start a new connection (set the server_ip and port)
     s = Thread(group=None,target=send)
     s.start()
 
-# For debug!
+# For debug reasons!
 def main():
     run("localhost",gl_port)
 

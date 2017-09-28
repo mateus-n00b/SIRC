@@ -2,7 +2,7 @@
 
 **This is a simple program that tries to simulate a IRC chat**
 
-## Features :+1:
+## Features 
 
   * Using Diffie-Hellman Algorithm to exchange the keys;
 
@@ -13,10 +13,11 @@
 ## TODOs:
 
   * Finish the implementation of:
-      * Client side
-      * Server side
-      * security module
-      * commands (Like IRC)
+      * Client side :clock2:
+      * Server side :clock2:
+      * Key exchange :ok:
+      * security module :ok:
+      * commands (Like IRC) :clock2:
 
 ## BUGs:
 
