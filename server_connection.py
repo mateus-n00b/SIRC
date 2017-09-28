@@ -31,7 +31,7 @@ def handle_msg(conn,port):
             json_msg = conn.recv(BUFFER)
 
             if not json_msg:
-                print "[-] {0} is out!".format(addr[0])
+                print "[-] {0} is out!".format(port)
                 break
 
             for obj,p in CONNECTIONS:
@@ -71,7 +71,7 @@ def authenticate(conn,port):
     global KEYs_IVs
     AES_Key = str()
     AES_IV = str()
-    
+
     AES_Key,AES_IV = security.diffie_hellman_server(conn)
     KEYs_IVs[port] = (AES_Key,AES_IV)
     print "[+] Successful!"

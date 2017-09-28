@@ -11,12 +11,13 @@ from Crypto.Cipher import AES
 import random,json
 import prime_generator
 
-# Prime numbers
-PRIME = range(2,30001)
-prime_generator.prime_generator(PRIME,30001)
-
 KEY_LEN = 16 # Key length (use multiples of 16)
 PADDING = ' ' # padding character
+
+# Prime numbers
+PRIME = range(2,500)
+prime_generator.prime_generator(PRIME,500)
+
 
 # Server keys-exchange
 def diffie_hellman_server(conn):

@@ -31,7 +31,7 @@ def send():
 def read():
     while 1:
         cipher_msg = sock.recv(1024) # read from buffer
-        if not msg:
+        if not cipher_msg:
             print "[-] Server seems to be OFFLINE! Exiting..."
             break
 
