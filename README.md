@@ -1,6 +1,6 @@
 # SIRC
 
-**This is a simple programs that tries to simulate a IRC chat**
+**This is a simple program that tries to simulate a IRC chat**
 
 ## Features :+1:
 
