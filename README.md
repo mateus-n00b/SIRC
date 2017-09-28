@@ -19,7 +19,7 @@
       * commands (Like IRC)
 
 ## BUGs:
-
-    * To exit you'll need to kill the Threads and I don't know how to it. :cry:  
+    
+    * To exit you'll need to kill the Threads and I don't know how to it :cry:.
 
 **This project is still under development, therefore, there are a lot of work to be done.**  :tired_face:
