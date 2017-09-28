@@ -27,7 +27,7 @@ def diffie_hellman_server(conn):
     # My secret number
     a = random.randint(1,35535)
     # My prime number
-    p = random.choice(PRIMES)
+    p = random.choice(PRIME)
 
     #My basestring
     g = random.randint(1,35535)
