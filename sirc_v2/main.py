@@ -29,7 +29,8 @@ import getopt,sys
  # $ python client_connection.py
 
 if len(sys.argv) < 2:
-        print "Usage: {0} -c (play as a client) or -s (play as a server)".format(sys.argv[0])
+        print "Usage: {0} -c|--client <server_ip> (play as a client) or -s (play as a server)\n\
+       {0} -c 127.0.0.1 - connect to server '127.0.0.1'".format(sys.argv[0])
         exit(-1)
 
 opts,args =  getopt.getopt(sys.argv[1:],"hsc:",["client,help"])
@@ -39,7 +40,7 @@ for o,a in opts:
         exit(-1)
     elif o in ("-s", "--server"):
         server_connection.run()
-        
+
     elif o in ("-c","--client"):
         root = Tk()
         client_connection.App(master=root,server_ip=a)
