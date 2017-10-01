@@ -12,7 +12,7 @@ from socket import *
 from threading import Thread
 import irc_cmds
 import security
-import json,random
+import json,random,os
 
 BUFFER = 1024
 gl_port = 2222
@@ -118,6 +118,10 @@ class App():
 
               elif "@help" in txt:
                   self.mylist.insert(END,"'@nick:<new_nick>' to change your nickname") # TODO: Implment the help function
+                  self.mylist.insert(END,"'@exit' to exit") # TODO: Implment the help function
+
+              elif "@exit" in txt:
+                  os.system("killall python") # Temporary
 
               else:
                   message['txt'] = txt # To Json
