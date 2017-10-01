@@ -22,12 +22,6 @@ import server_connection
 import client_connection
 import getopt,sys
 
-# Men at work
-# For a simple test, run in a terminal:
- # $ python server_connection.py
-# Open other terminal and run:
- # $ python client_connection.py
-
 if len(sys.argv) < 2:
         print "Usage: {0} -c|--client <server_ip> (play as a client) or -s (play as a server)\n\
        {0} -c 127.0.0.1 - connect to server '127.0.0.1'".format(sys.argv[0])
