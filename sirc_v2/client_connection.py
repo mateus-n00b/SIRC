@@ -128,10 +128,8 @@ class App():
               else:
                   message['txt'] = txt # To Json
                   self.mylist.insert(0, message["nick"]+":> "+txt) # prints at the prompt
-
                 #   self.mylist.insert(END, message["nick"]+":> "+txt) # prints at end of prompt
                 #   self.scrollbar.focus_set() # Interesting
-
                   msg = security.encrypt_msg(AES_Key,AES_IV,json.dumps(message)) # encrypt_msg
                   sock.send(msg) # sends message
           self.read_message.delete(first=0,last=26) # clear the prompt!!!!
