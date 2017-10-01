@@ -68,12 +68,14 @@ class App():
         self.read_message= Entry(self.container3)
         self.read_message["width"] = 30
         self.read_message["font"] = self.fontePadrao
+        self.read_message.bind("<Return>",self.send) # Press Enter to send
         self.read_message.pack(side=LEFT)
 
         self.autenticar = Button(self.container4)
         self.autenticar["text"] = "Send"
         self.autenticar["font"] = ("Calibri","8")
-        self.autenticar["command"] = self.send
+        self.autenticar["command"] = self.send # Press mouse button
+        self.autenticar.bind("<Return>",self.send) # Press Enter to send
         self.autenticar.pack()
 
 
@@ -105,7 +107,7 @@ class App():
                 tmp = ""
 
 
-    def send(self):
+    def send(self,event):
           global message
           global AES_IV
           global AES_IV
@@ -126,6 +128,7 @@ class App():
               else:
                   message['txt'] = txt # To Json
                   self.mylist.insert(END, message["nick"]+":> "+txt) # prints at the prompt
+                #   print self.scrollbar.get()
                   msg = security.encrypt_msg(AES_Key,AES_IV,json.dumps(message)) # encrypt_msg
                   sock.send(msg) # sends message
           self.read_message.delete(first=0,last=26) # clear the prompt!!!!
