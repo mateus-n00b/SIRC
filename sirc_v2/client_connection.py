@@ -93,17 +93,17 @@ class App():
 
     def salut(self): # My greetings
         welcome_msg = "\
+        \n\
         Welcome to SIRC (Simple IRC)\n\
         This program is currently under development. Therefore, some bugs still remains.\n\
         Any hints mail me (mateus.aluufc@gmail.com)\n\
-        For more help just type '@help'\n\
-        \n"
+        For more help just type '@help'\n"
         tmp = ""
         for w in welcome_msg:
             if w != '\n':
                 tmp+=w
             else:
-                self.mylist.insert(END,tmp)
+                self.mylist.insert(2,tmp)
                 tmp = ""
 
 
@@ -116,19 +116,22 @@ class App():
           if txt: # Add more cmds
               if "@nick:" in txt:
                   message["nick"] = str(txt).split(':')[1]
-                  self.mylist.insert(END, message["nick"]+":> nickname updated!") # prints at the prompt
+                  self.mylist.insert(0, message["nick"]+":> nickname updated!") # prints at the prompt
 
               elif "@help" in txt:
-                  self.mylist.insert(END,"'@nick:<new_nick>' to change your nickname") # TODO: Implment the help function
-                  self.mylist.insert(END,"'@exit' to exit") # TODO: Implment the help function
+                  self.mylist.insert(0,"'@nick:<new_nick>' to change your nickname") # TODO: Implment the help function
+                  self.mylist.insert(0,"'@exit' to exit") # TODO: Implment the help function
 
               elif "@exit" in txt:
                   os.system("killall python") # Temporary
 
               else:
                   message['txt'] = txt # To Json
-                  self.mylist.insert(END, message["nick"]+":> "+txt) # prints at the prompt
-                #   print self.scrollbar.get()
+                  self.mylist.insert(0, message["nick"]+":> "+txt) # prints at the prompt
+
+                #   self.mylist.insert(END, message["nick"]+":> "+txt) # prints at end of prompt
+                #   self.scrollbar.focus_set() # Interesting
+
                   msg = security.encrypt_msg(AES_Key,AES_IV,json.dumps(message)) # encrypt_msg
                   sock.send(msg) # sends message
           self.read_message.delete(first=0,last=26) # clear the prompt!!!!
@@ -147,7 +150,7 @@ class App():
             plain_msg = security.decrypt_msg(AES_Key,AES_IV,cipher_msg) # Decrypt msg
             plain_msg = json.loads(plain_msg)
             msg = plain_msg['nick'].encode("utf-8")+':> '+plain_msg['txt'].encode("utf-8")
-            self.mylist.insert(END,msg) # print the message
+            self.mylist.insert(0,msg) # print the message
 
     # TODO: Conclude this function
     def start_connection(self):
