@@ -87,10 +87,23 @@ class App():
         r = Thread(group=None,target=self.read)
         r.start()
 
-    def insert_text(self):
-        passw = self.read_message.get()
-        self.mylist.insert(END, passw)
-        self.read_message.delete(first=0,last=26) # apaga os caracteres!!!!
+        self.salut() # Greetings
+
+    def salut(self): # My greetings
+        welcome_msg = "\
+        Welcome to SIRC (Simple IRC)\n\
+        This program is currently under development. Therefore, some bugs still remains.\n\
+        Any hints mail me (mateus.aluufc@gmail.com)\n\
+        For more help just type '@help'\n\
+        \n"
+        tmp = ""
+        for w in welcome_msg:
+            if w != '\n':
+                tmp+=w
+            else:
+                self.mylist.insert(END,tmp)
+                tmp = ""
+
 
     def send(self):
           global message
@@ -102,6 +115,10 @@ class App():
               if "@nick:" in txt:
                   message["nick"] = str(txt).split(':')[1]
                   self.mylist.insert(END, message["nick"]+":> nickname updated!") # prints at the prompt
+
+              elif "@help" in txt:
+                  self.mylist.insert(END,"'@nick:<new_nick>' to change your nickname") # TODO: Implment the help function
+
               else:
                   message['txt'] = txt # To Json
                   self.mylist.insert(END, message["nick"]+":> "+txt) # prints at the prompt
