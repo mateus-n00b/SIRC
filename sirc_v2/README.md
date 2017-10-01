@@ -26,4 +26,4 @@
 
   * To exit you'll need to kill the Threads (For while I'm using $ killall python ) :cry:.
 
-**Program currently are under development, therefore, there are a lot of work to be done.**  :tired_face:
+**Program currently under development, therefore, there are a lot of work to be done.**  :tired_face:
