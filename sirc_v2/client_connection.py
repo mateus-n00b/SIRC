@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#coding:utf-8
 # Manage the client connection
 #
 #
@@ -6,7 +7,6 @@
 #
 # TODO: Conclude the implementation!
 #
-#coding:utf-8
 from Tkinter import *
 from socket import *
 from threading import Thread
@@ -99,7 +99,7 @@ class App():
 
           txt = self.read_message.get() # read from the prompt
           if txt: # Add more cmds
-              if "@nick:" in str(txt):
+              if "@nick:" in txt:
                   message["nick"] = str(txt).split(':')[1]
                   self.mylist.insert(END, message["nick"]+":> nickname updated!") # prints at the prompt
               else:
