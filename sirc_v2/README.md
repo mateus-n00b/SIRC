@@ -10,17 +10,20 @@
 
   * using threads to read and send.
 
+  * Using a GUI to send and read messages :+1:
+
 ## TODOs:
 
   * Finish the implementation of:
-      * Client side :clock2:
-      * Server side :clock2:
+      * Client side :ok:
+      * Server side :ok:
+      * GUI :clock2:
       * Key exchange :ok:
       * security module :ok:
       * commands (Like IRC) :clock2:
 
 ## BUGs:
 
-  * To exit you'll need to kill the Threads (By now, I'm using $ killall python ) :cry:.
+  * To exit you'll need to kill the Threads (For while I'm using $ killall python ) :cry:.
 
 **Program currently are under development, therefore, there are a lot of work to be done.**  :tired_face:
