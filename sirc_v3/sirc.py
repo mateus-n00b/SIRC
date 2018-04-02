@@ -8,7 +8,7 @@
 # 01/04/2018 - Salvador, Brazil
 #
 # TODO: Add security module.
-#
+# NOTE: messages are sent in plain text
 
 from Tkinter import *
 import client_connection

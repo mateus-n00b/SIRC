@@ -7,19 +7,16 @@
 from Tkinter import *
 from threading import Thread
 import requests
-import json,random,os
+import json,random,os,time
 
-
-nick = "guest-"+hex(random.randint(0,1000))
-message = {}
 
 class App:
     def __init__(self,master,url):
-        global message
-        global nick
+        self.nick = "guest-"+hex(random.randint(0,1000)) # random nickname
+        self.message = dict() # message structure
 
-        self.url = url
-        self.r = requests
+        self.url = url # room ID
+        self.r = requests # requests module
 
 
         # Testing connection
@@ -27,7 +24,7 @@ class App:
             print "Error on connecting to {}".format(self.url)
             exit(-1)
 
-        message['nick'] = nick  # Your nickname
+        self.message['nick'] = self.nick  # Your nickname
 
         self.fontePadrao = ("Arial","10")
 
@@ -83,9 +80,9 @@ class App:
     def salut(self): # My greetings
         welcome_msg = "\
         \n\
-        Welcome to SIRC (Simple IRC)\n\
+        Welcome to SIRC (Simple IRCv3)\n\
         Program currently under development. Some bugs may appears.\n\
-        Any hints mail me (mateus.aluufc@gmail.com)\n\
+        Hints? Mail me (mateus.aluufc@gmail.com)\n\
         For more help just type '@help'\n"
         tmp = ""
         for w in welcome_msg:
@@ -107,20 +104,25 @@ class App:
           txt = self.read_message.get() # read from the prompt
           if txt: # Add more cmds
               if "@help" in txt:
-                  self.mylist.insert(0,"'@nick:<new_nick>' to change your nickname") # TODO: Implment the help function
+                  self.mylist.insert(0,"Type '@nick=<new_nick>' to change your nickname") # TODO: Implment the help function
                   self.mylist.insert(0,"'@exit' to exit") # TODO: Implment the help function
 
               elif "@exit" in txt:
                   os.system("killall python") # Temporary
 
+              elif "@nick" in txt:
+                  try:
+                      self.nick = str(txt).split('=')[1]
+                      self.message["nick"] = self.nick
+                      self.mylist.insert(0, self.message["nick"]+":> nickname updated!") # prints at the prompt
+                  except Exception as err:
+                        self.mylist.insert(0, "Invalid command! Try '@help'") # prints at the prompt
+
               else:
-                  message['txt'] = txt # To Json
-                  message['status'] = False
-                  self.mylist.insert(0, message["nick"]+":> "+txt) # prints at the prompt
-                #   self.mylist.insert(END, message["nick"]+":> "+txt) # prints at end of prompt
-                #   self.scrollbar.focus_set() # Interesting
-                #   msg = security.encrypt_msg(AES_Key,AES_IV,json.dumps(message)) # encrypt_msg
-                  self.r.post(self.url,data={"text":json.dumps(message)}) # sends message
+                  self.message['txt'] = txt # To Json
+                  self.message['status'] = False
+                  self.mylist.insert(0, self.message["nick"]+":> "+txt) # prints at the prompt
+                  self.r.post(self.url,data={"text":json.dumps(self.message)}) # sends self.message
           self.read_message.delete(first=0,last=26) # clear the prompt!!!!
 
     def read(self):
@@ -129,16 +131,19 @@ class App:
             plain_msg = cipher_msg.content.split('text">')[1].split('</textarea>')[0] # Armengss
 
             if not plain_msg:
-                # self.mylist.insert(END,"[-] Server seems to be OFFLINE! Exiting...")
-                message['txt'] = "Hi!"
-                message['status'] = False
-                self.r.post(self.url,data={"text":json.dumps(message)}) # sends message
+                self.message['txt'] = "Hi!"
+                self.message['status'] = False
+                self.r.post(self.url,data={"text":json.dumps(self.message)}) # sends self.message
 
             else:
-                to_json = json.loads(str(plain_msg))
-                if not bool(to_json['status']) and to_json['nick'] != nick: # Msg already readed?
-                    msg = to_json['nick'].encode("utf-8")+':> '+to_json['txt'].encode("utf-8")
-                    self.mylist.insert(0,msg) # print the message
-                    message['status'] = True
-                    # NOTE: The line bellow deletes the message after read it (wrong way!!!!)
-                    self.r.post(self.url,data={"text":json.dumps(message)}) # TODO: Fix this part. You'll need to treat messages lifetime
+                try:
+                    to_json = json.loads(str(plain_msg))
+                    if not bool(to_json['status']) and to_json['nick'] != self.nick: # Msg already readed?
+                        msg = to_json['nick'].encode("utf-8")+':> '+to_json['txt'].encode("utf-8")
+                        self.mylist.insert(0,msg) # print the self.message
+                        self.message['status'] = True
+                        # NOTE: The line bellow deletes the self.message after read it (wrong way!!!!)
+                        self.r.post(self.url,data={"text":json.dumps(self.message)}) # TODO: Fix this part. You'll need to treat self.messages lifetime
+                except Exception as err:
+                    print "[-] {}".format(err)
+                    time.sleep(0.3)
