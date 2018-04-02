@@ -1,2 +1,3 @@
 #SIRC
 PyCrypto>=2.6.1
+requests>=2.4.3
