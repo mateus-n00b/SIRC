@@ -4,5 +4,6 @@
   * Now SIRC allows to users send messages in the Internet
   * Uses Tkinter as GUI
 
-- [ Add security module ]
-- [ Improve sending/receiving functions ]
+## TODOs
+  - [Add security module]
+  - [Improve sending/receiving functions]
