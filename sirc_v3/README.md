@@ -5,5 +5,5 @@
   * Uses Tkinter as GUI
 
 ## TODOs
-  - [Add security module]
-  - [Improve sending/receiving functions]
+  - [ ] Add security module
+  - [ ] Improve sending/receiving functions
