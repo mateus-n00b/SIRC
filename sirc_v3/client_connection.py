@@ -97,7 +97,7 @@ class App:
 
 
     def test_conn(self):
-        status = self.r.request("GET",self.url)
+        status = self.r.get(self.url)
         if int(status.status_code) != 200:
             return False
         return True
@@ -125,7 +125,7 @@ class App:
 
     def read(self):
         while 1:
-            cipher_msg = self.r.request(method="GET",url=self.url) # read from buffer
+            cipher_msg = self.r.get(url=self.url) # read from buffer
             plain_msg = cipher_msg.content.split('text">')[1].split('</textarea>')[0] # Armengss
 
             if not plain_msg:
